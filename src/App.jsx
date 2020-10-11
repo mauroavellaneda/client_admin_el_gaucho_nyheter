@@ -6,14 +6,12 @@ import { Route, Redirect, Switch } from "react-router-dom";
 
 const App = () => {
   const [authenticated, setAuthenticated] = useState(false);
-  const [role, setRole] = useState("journalist");
+  const [role, setRole] = useState("");
 
   let display;
 
   if (authenticated && role === "journalist") {
     display = <Redirect to="/journalist" />;
-  } else if (authenticated && role === "editor") {
-    display = <Redirect to="/editor" />;
   } else {
     display = <Redirect to="/no_match" />;
   }
