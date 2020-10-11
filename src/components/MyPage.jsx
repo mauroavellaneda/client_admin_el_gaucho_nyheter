@@ -7,8 +7,6 @@ const MyPage = () => {
   let display;
   if (role === "journalist") {
     display = <button data-cy="create-article">Create Article</button>;
-  } else if (role === "editor") {
-    display = "Hello editor";
   } else if (role === "no_match") {
     display = "No Match";
   }
