@@ -28,19 +28,6 @@ const App = () => {
           setRole={(role) => setRole(role)}
         />
       )}
-      {/* <Redirect from="/" to="/auth" /> */}
-
-      {/* <Switch>
-
-        <Route path="/auth">
-          <Authentication
-            authenticate={(success) => setAuthenticated(success)}
-          />
-        </Route>
-
-        <Route exact path="/:journalist" component={MyPage} />
-        <Route exact path="/:editor" component={MyPage} />
-      </Switch> */}
     </>
   );
 };
