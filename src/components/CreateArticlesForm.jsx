@@ -10,7 +10,7 @@ const CreateArticlesForm = () => {
     setSelectedCategory(value);
   };
 
-  const form = async (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     let headers = JSON.parse(localStorage.getItem("J-tockAuth-Storage"));
     let result;
@@ -34,13 +34,14 @@ const CreateArticlesForm = () => {
         }
       );
       setMessage(result.data.message);
+      document.getElementById("create-article").reset();
     } catch (error) {
       console.log(error.response.data);
     }
   };
   return (
     <div>
-      <Form data-cy="create-article" onSubmit={form}>
+      <Form data-cy="create-article" id="create-article" onSubmit={onSubmit}>
         <Form.Group widths="equal" data-cy="form-article">
           <Form.Input
             fluid

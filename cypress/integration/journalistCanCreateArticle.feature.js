@@ -11,11 +11,6 @@ describe("Journalist can create article", () => {
       url: "http://localhost:3000/api/v1/auth/**",
       response: "fixture:login_journalist.json",
     });
-    // cy.route({
-    //   method: "POST",
-    //   url: "**/journalist/articles",
-    //   response: { message: "Article successfully created" },
-    // });
     cy.visit("/");
     cy.get('[data-cy="login-form"]').within(() => {
       cy.get('[data-cy="email"]').type("journalist@mail.com");
