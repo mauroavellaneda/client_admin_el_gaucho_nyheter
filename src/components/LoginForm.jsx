@@ -1,9 +1,9 @@
 import React from "react";
-import { Button, Form } from "semantic-ui-react";
+import { Button, Form, Container } from "semantic-ui-react";
 
 const LoginForm = (props) => {
   return (
-    <div>
+    <Container>
       <Form data-cy="login-form" onSubmit={props.login}>
         <Form.Input
           icon="user"
@@ -29,7 +29,7 @@ const LoginForm = (props) => {
 
         <Button data-cy="button" id="Submit" content="Submit" primary />
       </Form>
-    </div>
+    </Container>
   );
 };
 

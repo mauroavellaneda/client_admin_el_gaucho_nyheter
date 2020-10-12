@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import CreateArticleForm from "./CreateArticlesForm";
+import {Button} from 'semantic-ui-react'
 
 const MyPage = () => {
   const [createForm, setCreateForm] = useState(false);
@@ -9,13 +10,13 @@ const MyPage = () => {
       {createForm ? (
         <CreateArticleForm />
       ) : (
-        <button
+        <Button
           data-cy="create-article"
           id="save-result"
           onClick={() => setCreateForm(true)}
         >
           Create Article
-        </button>
+        </Button>
       )}
     </div>
   );

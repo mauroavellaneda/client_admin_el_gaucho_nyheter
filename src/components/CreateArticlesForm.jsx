@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Form } from "semantic-ui-react";
-import axios from "axios";
+import { Form, Container } from "semantic-ui-react";
+import { createForm } from "../modules/createForm";
 
 const CreateArticlesForm = () => {
   const [message, setMessage] = useState("");
@@ -12,35 +12,17 @@ const CreateArticlesForm = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    let headers = JSON.parse(localStorage.getItem("J-tockAuth-Storage"));
-    let result;
-    try { 
-      result = await axios.post(
-        "/journalist/articles",
-        {
-          article: {
-            title: e.target.title.value,
-            lead: e.target.lead.value,
-            content: e.target.content.value,
-            category: selectedCategory,
-          },
-        },
-        {
-          headers: {
-            ...headers,
-            "Content-type": "application/json",
-            Accept: "application/json",
-          },
-        }
-      ); 
-      setMessage(result.data.message);
-      document.getElementById("create-article").reset();
-    } catch (error) {
-      setMessage(error.response.data.message);
-    }
+    const result = await createForm(
+      e.target.title.value,
+      e.target.lead.value,
+      e.target.content.value,
+      selectedCategory
+    );
+    setMessage(result);
   };
+
   return (
-    <div>
+      <Container>
       <Form data-cy="create-article" id="create-article" onSubmit={onSubmit}>
         <Form.Group widths="equal" data-cy="form-article">
           <Form.Input
@@ -78,7 +60,7 @@ const CreateArticlesForm = () => {
         <Form.Button data-cy="save-article">Save Article</Form.Button>
       </Form>
       <p data-cy="save-article-message">{message}</p>
-    </div>
+      </Container>
   );
 };
 
