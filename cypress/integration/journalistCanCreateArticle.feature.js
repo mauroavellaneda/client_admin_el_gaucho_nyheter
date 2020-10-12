@@ -50,6 +50,7 @@ describe("Journalist can create article", () => {
         method: "POST",
         url: "http://localhost:3000/api/v1/journalist/articles",
         response: { message: "Title can't be blank" },
+        status: "400",
       });
     });
     it("unsuccessfully without title", () => {

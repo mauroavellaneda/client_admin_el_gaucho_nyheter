@@ -14,7 +14,7 @@ const CreateArticlesForm = () => {
     e.preventDefault();
     let headers = JSON.parse(localStorage.getItem("J-tockAuth-Storage"));
     let result;
-    try {
+    try { 
       result = await axios.post(
         "/journalist/articles",
         {
@@ -32,11 +32,11 @@ const CreateArticlesForm = () => {
             Accept: "application/json",
           },
         }
-      );
+      ); 
       setMessage(result.data.message);
       document.getElementById("create-article").reset();
     } catch (error) {
-      console.log(error.response.data);
+      setMessage(error.response.data.message);
     }
   };
   return (
