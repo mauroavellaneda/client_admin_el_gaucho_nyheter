@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Container } from "semantic-ui-react";
-import { createForm } from "../modules/createForm";
+import Article from "../modules/createForm";
 
 const CreateArticlesForm = () => {
   const [message, setMessage] = useState("");
@@ -12,7 +12,7 @@ const CreateArticlesForm = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const result = await createForm(
+    const result = await Article.createForm(
       e.target.title.value,
       e.target.lead.value,
       e.target.content.value,
