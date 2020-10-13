@@ -27,7 +27,7 @@ describe('Journalist can login and see "Create Article" button', () => {
     });
   });
 
-  context("Unsucessfully", () => {
+  context("Unsuccessfully", () => {
     beforeEach(() => {
       cy.server();
       cy.route({

@@ -49,14 +49,14 @@ const CreateArticlesForm = () => {
             placeholder="Gender"
             data-cy="category"
             id="category"
+          />   
+          <Form.TextArea
+            label="Article"
+            placeholder="..."
+            data-cy="content"
+            id="content"
           />
         </Form.Group>
-        <Form.TextArea
-          label="Article"
-          placeholder="..."
-          data-cy="content"
-          id="content"
-        />
         <Form.Button data-cy="save-article">Save Article</Form.Button>
       </Form>
       <p data-cy="save-article-message">{message}</p>
