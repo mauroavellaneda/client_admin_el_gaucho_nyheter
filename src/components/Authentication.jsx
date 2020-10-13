@@ -1,36 +1,28 @@
-import React from 'react'
-import LoginForm from './LoginForm'
+import React from "react";
+import LoginForm from "./LoginForm";
 import auth from "../modules/auth";
 
 const Authentication = (props) => {
   const login = async (e) => {
-    e.preventDefault()
-    const email = e.target.email.value
-    const password= e.target.password.value
-    
-    const response = await auth.signIn(email, password)
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
 
-    if (response.success) {debugger
-      props.authenticate(response.success)
+    const response = await auth.signIn(email, password);
+
+    if (response.success) {
+      props.authenticate(response.success);
+      props.setRole(response.data.role);
+    } else {
       
-
-    } else {debugger
-
     }
-
-
-
-  }
-
+  };
 
   return (
     <>
-      <LoginForm
-        login={login}
-      />
-      
+      <LoginForm login={login} />
     </>
-  )
-}
+  );
+};
 
-export default Authentication
+export default Authentication;

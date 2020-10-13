@@ -16,21 +16,18 @@ describe('Journalist can login and see "Create Article" button', () => {
     });
 
     it("Journalist can login", () => {
-      // cy.get('[data-cy="login"]').click();
       cy.get('[data-cy="login-form"]').within(() => {
         cy.get('[data-cy="email"]').type("journalist@mail.com");
         cy.get('[data-cy="password"]').type("password");
         cy.get('[data-cy="button"]').contains("Submit").click();
       });
-      // cy.get('[data-cy="message"]').should("contain", "Welcome journalist@mail.com");
-
       cy.get('[data-cy="create-article"]')
         .contains("Create Article")
         .should("be.visible");
     });
   });
 
-  context("Unsucessfully", () => {
+  context("Unsuccessfully", () => {
     beforeEach(() => {
       cy.server();
       cy.route({
@@ -41,14 +38,13 @@ describe('Journalist can login and see "Create Article" button', () => {
       });
       cy.visit("/");
     });
+    
     it("invalid credentials", () => {
-      // cy.get('[data-cy="login"]').click();
       cy.get('[data-cy="login-form"]').within(() => {
         cy.get('[data-cy="email"]').type("invalid@mail.com");
         cy.get('[data-cy="password"]').type("wrong_password");
         cy.get('[data-cy="button"]').contains("Submit").click();
       });
-      // cy.get('[data-cy="message"]').should("contain", "Invalid credentials");
       cy.get('[data-cy="create-article"]').should("not.exist");
     });
   });

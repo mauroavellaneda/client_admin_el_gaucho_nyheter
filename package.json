@@ -6,20 +6,24 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "axios": "^0.20.0",
     "j-tockauth": "^1.2.7",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^2.0.0"
+    "semantic-ui-react": "^2.0.0",
+    "start-server-and-test": "^1.11.5"
   },
   "scripts": {
     "start": "PORT=3001 react-scripts start",
+    "start:silent": "BROWSER=none PORT=3001 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "cy:open": "yarn start -silent & cypress open"
+    "cy:open": "cypress open",
+    "cypress": "start-server-and-test start:silent http://localhost:3001/ cy:open"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Authentication from "./components/Authentication";
 import MyPage from "./components/MyPage";
 import Header from "./components/Header";
-import { Route, Redirect, Switch } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 
 const App = () => {
   const [authenticated, setAuthenticated] = useState(false);
@@ -20,28 +20,14 @@ const App = () => {
     <>
       <Header />
       {display}
-      <Switch>
-        {authenticated ? (
-          <Route exact path="/:role" component={MyPage} />
-        ) : (
-          <Authentication
-            authenticate={(success) => setAuthenticated(success)}
-          />
-        )}
-      </Switch>
-      {/* <Redirect from="/" to="/auth" /> */}
-
-      {/* <Switch>
-
-        <Route path="/auth">
-          <Authentication
-            authenticate={(success) => setAuthenticated(success)}
-          />
-        </Route>
-
-        <Route exact path="/:journalist" component={MyPage} />
-        <Route exact path="/:editor" component={MyPage} />
-      </Switch> */}
+      {authenticated ? (
+        <Route exact path="/:role" component={MyPage} />
+      ) : (
+        <Authentication
+          authenticate={(success) => setAuthenticated(success)}
+          setRole={(role) => setRole(role)}
+        />
+      )}
     </>
   );
 };

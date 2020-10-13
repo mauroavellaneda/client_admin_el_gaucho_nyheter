@@ -1,21 +1,23 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useState } from "react";
+import CreateArticleForm from "./CreateArticlesForm";
+import {Button} from 'semantic-ui-react'
 
 const MyPage = () => {
-  const { role } = useParams();
-
-  let display;
-  if (role === "journalist") {
-    display = <button data-cy="create-article">Create Article</button>;
-  } else if (role === "editor") {
-    display = "Hello editor";
-  } else if (role === "no_match") {
-    display = "No Match";
-  }
+  const [createForm, setCreateForm] = useState(false);
 
   return (
     <div>
-      <p>{display}</p>
+      {createForm ? (
+        <CreateArticleForm />
+      ) : (
+        <Button
+          data-cy="create-article"
+          id="save-result"
+          onClick={() => setCreateForm(true)}
+        >
+          Create Article
+        </Button>
+      )}
     </div>
   );
 };
