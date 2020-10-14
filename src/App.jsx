@@ -12,15 +12,13 @@ const App = () => {
 
   if (authenticated && role === "journalist") {
     display = <Redirect to="/journalist" />;
-  } else {
-    display = <Redirect to="/no_match" />;
   }
 
   return (
     <>
       <Header />
       {display}
-      {authenticated ? (
+      {authenticated && role === "journalist" ? (
         <Route exact path="/:role" component={MyPage} />
       ) : (
         <Authentication

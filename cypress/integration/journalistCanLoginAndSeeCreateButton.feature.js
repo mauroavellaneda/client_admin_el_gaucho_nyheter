@@ -14,7 +14,6 @@ describe('Journalist can login and see "Create Article" button', () => {
       });
       cy.visit("/");
     });
-
     it("Journalist can login", () => {
       cy.get('[data-cy="login-form"]').within(() => {
         cy.get('[data-cy="email"]').type("journalist@mail.com");
@@ -27,7 +26,7 @@ describe('Journalist can login and see "Create Article" button', () => {
     });
   });
 
-  context("Unsuccessfully", () => {
+  context("Unsuccessfully with wrong credentials", () => {
     beforeEach(() => {
       cy.server();
       cy.route({
@@ -49,7 +48,6 @@ describe('Journalist can login and see "Create Article" button', () => {
       });
       cy.visit("/");
     });
-
     it("invalid credentials", () => {
       cy.get('[data-cy="login-form"]').within(() => {
         cy.get('[data-cy="email"]').type("invalid@mail.com");
@@ -61,6 +59,32 @@ describe('Journalist can login and see "Create Article" button', () => {
         "contain",
         "Invalid login credentials. Please try again."
       );
+    });
+  });
+
+  context("with 'registered' role -no journlaist-", () => {
+    beforeEach(() => {
+      cy.server();
+      cy.route({
+        method: "POST",
+        url: "http://localhost:3000/api/v1/auth/sign_in",
+        response: "fixture:login_registered.json",
+      });
+      cy.route({
+        method: "GET",
+        url: "http://localhost:3000/api/v1/auth/**",
+        response: "fixture:login_registered.json",
+      });
+      cy.visit("/");
+      cy.get('[data-cy="login-form"]').within(() => {
+        cy.get('[data-cy="email"]').type("registered@mail.com");
+        cy.get('[data-cy="password"]').type("password");
+        cy.get('[data-cy="button"]').contains("Submit").click();
+      });
+    });
+
+    it("Registered user cannot see 'Create Article'", () => {
+      cy.get('[data-cy="create-article"]').should("not.exist");
     });
   });
 });
