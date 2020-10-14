@@ -18,11 +18,12 @@ describe("Journalist can create article", () => {
       cy.get('[data-cy="button"]').contains("Submit").click();
     });
   });
+
   context("successfully created", () => {
     beforeEach(() => {
       cy.route({
         method: "POST",
-        url: "**/journalist/articles",
+        url: "http://localhost:3000/api/v1/admin/articles",
         response: { message: "Article successfully created" },
       });
     });
@@ -33,8 +34,8 @@ describe("Journalist can create article", () => {
         cy.get('[data-cy="lead"]').type("Lead");
         cy.get('[data-cy="category"]').click();
         cy.get('[data-cy="category"]').contains("Politics").click();
+        cy.get('[data-cy="content"]').type("Content");
       });
-      cy.get('[data-cy="content"]').type("Content");
       cy.get('[data-cy="save-article"]').contains("Save Article").click();
       cy.get('[data-cy="save-article-message"]').should(
         "contain",
@@ -48,9 +49,9 @@ describe("Journalist can create article", () => {
       cy.server();
       cy.route({
         method: "POST",
-        url: "http://localhost:3000/api/v1/journalist/articles",
+        url: "http://localhost:3000/api/v1/admin/articles",
         response: { message: "Title can't be blank" },
-        status: "400",
+        status: "422",
       });
     });
     it("unsuccessfully without title", () => {
@@ -59,8 +60,8 @@ describe("Journalist can create article", () => {
         cy.get('[data-cy="lead"]').type("Lead");
         cy.get('[data-cy="category"]').click();
         cy.get('[data-cy="category"]').contains("Politics").click();
+        cy.get('[data-cy="content"]').type("Content");
       });
-      cy.get('[data-cy="content"]').type("Content");
       cy.get('[data-cy="save-article"]').contains("Save Article").click();
       cy.get('[data-cy="save-article-message"]').should(
         "contain",

@@ -6,7 +6,7 @@ const Articles = {
 
     try {
       let result = await axios.post(
-        "/journalist/articles",
+        "/admin/articles",
         {
           article: {
             title: props.title,
