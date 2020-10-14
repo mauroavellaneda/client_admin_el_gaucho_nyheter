@@ -33,8 +33,19 @@ describe('Journalist can login and see "Create Article" button', () => {
       cy.route({
         method: "POST",
         url: "http://localhost:3000/api/v1/auth/sign_in",
-        response: '{"message": "Invalid credentials"}',
+        response: {
+          errors: ["Invalid login credentials. Please try again."],
+          success: false,
+        },
         status: "401",
+      });
+      cy.route({
+        method: "GET",
+        url: "http://localhost:3000/api/v1/auth/**",
+        response: {
+          errors: ["Invalid login credentials. Please try again."],
+          success: false,
+        },
       });
       cy.visit("/");
     });
@@ -46,7 +57,10 @@ describe('Journalist can login and see "Create Article" button', () => {
         cy.get('[data-cy="button"]').contains("Submit").click();
       });
       cy.get('[data-cy="create-article"]').should("not.exist");
-      cy.get('[data-cy="message"]').should("contain", "Invalid credentials");
+      cy.get('[data-cy="message"]').should(
+        "contain",
+        "Invalid login credentials. Please try again."
+      );
     });
   });
 });
