@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const Articles = {
-  async createForm(props) {
+  async create(props) {
     let headers = JSON.parse(localStorage.getItem("J-tockAuth-Storage"));
 
     try {
@@ -29,6 +29,6 @@ const Articles = {
     } catch (error) {
       return error.response.data.message;
     }
-  }
-}
+  },
+};
 export default Articles;

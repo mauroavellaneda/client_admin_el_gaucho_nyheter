@@ -10,10 +10,12 @@ const Authentication = (props) => {
 
     const response = await auth.signIn(email, password);
 
-    if (response.success) {debugger
+    if (response.success) {
+      debugger;
       props.authenticate(response.success);
       props.setRole(response.data.role);
-    } else { debugger
+    } else {
+      debugger;
     }
   };
 

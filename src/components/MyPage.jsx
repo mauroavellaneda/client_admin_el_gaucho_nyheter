@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import CreateArticleForm from "./CreateArticlesForm";
-import {Button} from 'semantic-ui-react'
+import { Button } from "semantic-ui-react";
 
 const MyPage = () => {
   const [createForm, setCreateForm] = useState(false);

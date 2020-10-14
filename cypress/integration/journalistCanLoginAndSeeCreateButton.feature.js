@@ -38,7 +38,7 @@ describe('Journalist can login and see "Create Article" button', () => {
       });
       cy.visit("/");
     });
-    
+
     it("invalid credentials", () => {
       cy.get('[data-cy="login-form"]').within(() => {
         cy.get('[data-cy="email"]').type("invalid@mail.com");

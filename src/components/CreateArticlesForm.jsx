@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Container } from "semantic-ui-react";
-import Article from "../modules/createForm";
+import Article from "../modules/articles";
 
 const CreateArticlesForm = () => {
   const [message, setMessage] = useState("");
@@ -12,7 +12,7 @@ const CreateArticlesForm = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const result = await Article.createForm(
+    const result = await Article.create(
       e.target.title.value,
       e.target.lead.value,
       e.target.content.value,
@@ -22,7 +22,7 @@ const CreateArticlesForm = () => {
   };
 
   return (
-      <Container>
+    <Container>
       <Form data-cy="create-article" id="create-article" onSubmit={onSubmit}>
         <Form.Group widths="equal" data-cy="form-article">
           <Form.Input
@@ -49,7 +49,7 @@ const CreateArticlesForm = () => {
             placeholder="Gender"
             data-cy="category"
             id="category"
-          />   
+          />
           <Form.TextArea
             label="Article"
             placeholder="..."
@@ -60,7 +60,7 @@ const CreateArticlesForm = () => {
         <Form.Button data-cy="save-article">Save Article</Form.Button>
       </Form>
       <p data-cy="save-article-message">{message}</p>
-      </Container>
+    </Container>
   );
 };
 
