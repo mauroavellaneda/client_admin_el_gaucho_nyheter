@@ -46,6 +46,7 @@ describe('Journalist can login and see "Create Article" button', () => {
         cy.get('[data-cy="button"]').contains("Submit").click();
       });
       cy.get('[data-cy="create-article"]').should("not.exist");
+      cy.get('[data-cy="message"]').should("contain", "Invalid credentials");
     });
   });
 });
