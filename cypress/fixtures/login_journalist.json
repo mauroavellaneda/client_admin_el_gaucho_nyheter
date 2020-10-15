@@ -1,0 +1,11 @@
+{
+  "success": true,
+  "data": {
+    "id": 2,
+    "email": "journalist@mail.com",
+    "provider": "email",
+    "uid": "journalist@mail.com",
+    "allow_password_change": false,
+    "role": "journalist"
+  }
+}
