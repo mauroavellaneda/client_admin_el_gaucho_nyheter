@@ -9,7 +9,32 @@ if (process.env.NODE_ENV === "production") {
 
 const auth = new JtockAuth({
   host: apiUrl,
-  prefixUrl: "/api/v1"
+  prefixUrl: "/api/v1",
 });
 
-export default auth;
+const login = async (event, dispatch) => {
+  event.preventDefault();
+  try {
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+
+    const response = await auth.signIn(email, password);
+    debugger;
+    dispatch({
+      type: "AUTHENTICATE",
+      payload: {
+        currentUser: { email: response.data.email, role: response.data.role },
+        authenticate: true,
+      },
+    });
+  } catch (error) {
+    dispatch({
+      type: "AUTHENTICATE",
+      payload: {
+        message: error.response.data.errors[0],
+      },
+    });
+  }
+};
+
+export { login };

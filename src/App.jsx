@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import Authentication from "./components/Authentication";
 import MyPage from "./components/MyPage";
 import Header from "./components/Header";
 import { Route, Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const App = () => {
-  const [authenticated, setAuthenticated] = useState(false);
-  const [role, setRole] = useState("");
+  const authenticated = useSelector((state) => state.authenticate);
+  const role = useSelector((state) => state.currentUser.role);
 
   let display;
 
@@ -21,10 +22,7 @@ const App = () => {
       {authenticated && role === "journalist" ? (
         <Route exact path="/:role" component={MyPage} />
       ) : (
-        <Authentication
-          authenticate={(success) => setAuthenticated(success)}
-          setRole={(role) => setRole(role)}
-        />
+        <Authentication />
       )}
     </>
   );

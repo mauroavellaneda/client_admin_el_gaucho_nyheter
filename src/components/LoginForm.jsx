@@ -1,10 +1,13 @@
 import React from "react";
 import { Button, Form, Container } from "semantic-ui-react";
+import { login } from "../modules/auth";
+import { useDispatch } from "react-redux";
 
-const LoginForm = (props) => {
+const LoginForm = () => {
+  const dispatch = useDispatch();
   return (
     <Container>
-      <Form data-cy="login-form" onSubmit={props.login}>
+      <Form data-cy="login-form" onSubmit={(event) => login(event, dispatch)}>
         <Form.Input
           icon="user"
           iconPosition="left"
