@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import LoginForm from "./LoginForm";
 import auth from "../modules/auth";
+import { Message } from "semantic-ui-react";
 
 const Authentication = (props) => {
   const [message, setMessage] = useState();
@@ -23,7 +24,11 @@ const Authentication = (props) => {
   return (
     <>
       <LoginForm login={login} />
-      <p data-cy="message">{message}</p>
+      {message && (
+        <Message negative data-cy="message">
+          <Message.Header>{message}</Message.Header>
+        </Message>
+      )}
     </>
   );
 };

@@ -16,11 +16,9 @@ if (process.env.NODE_ENV === "production") {
 axios.defaults.baseURL = apiUrl;
 
 ReactDOM.render(
-  <React.StrictMode>
     <Router>
       <App />
-    </Router>
-  </React.StrictMode>,
+    </Router>,
   document.getElementById("root")
 );
 
