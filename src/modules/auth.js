@@ -19,14 +19,22 @@ const login = async (event, dispatch) => {
     const password = event.target.password.value;
 
     const response = await auth.signIn(email, password);
-    debugger;
-    dispatch({
-      type: "AUTHENTICATE",
-      payload: {
-        currentUser: { email: response.data.email, role: response.data.role },
-        authenticate: true,
-      },
-    });
+    if (response.data.role === "journalist") {
+      dispatch({
+        type: "AUTHENTICATE",
+        payload: {
+          currentUser: { email: response.data.email, role: response.data.role },
+          authenticate: true,
+        },
+      });
+    } else {
+      dispatch({
+        type: "AUTHENTICATE",
+        payload: {
+          message: "You're not authorized to access this page",
+        },
+      });
+    }
   } catch (error) {
     dispatch({
       type: "AUTHENTICATE",

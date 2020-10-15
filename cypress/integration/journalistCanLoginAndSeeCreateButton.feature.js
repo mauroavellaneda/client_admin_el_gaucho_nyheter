@@ -84,7 +84,10 @@ describe('Journalist can login and see "Create Article" button', () => {
     });
 
     it("Registered user cannot see 'Create Article'", () => {
-      cy.get('[data-cy="create-article"]').should("not.exist");
+      cy.get('[data-cy="message"]').should(
+        "contain",
+        "You're not authorized to access this page"
+      );
     });
   });
 });
