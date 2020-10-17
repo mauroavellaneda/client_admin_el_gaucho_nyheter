@@ -12,6 +12,7 @@ const Articles = {
             title: props.title,
             lead: props.lead,
             content: props.content,
+            image: props.image,
             category: props.selectedCategory,
           },
         },
