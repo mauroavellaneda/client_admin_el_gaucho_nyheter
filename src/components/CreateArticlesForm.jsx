@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Container } from "semantic-ui-react";
+import { Form, Container, Message } from "semantic-ui-react";
 import Article from "../modules/articles";
 
 const CreateArticlesForm = () => {
@@ -20,20 +20,20 @@ const CreateArticlesForm = () => {
   };
 
   const handleCategoryChange = (value) => {
-    setSelectedCategory(value);
+   setSelectedCategory(value);
+   return selectedCategory
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
     let { title, lead, content, encodedImage } = e.target;
-
     if (image) {
       encodedImage = await toBase64(image);
     }
-
     const response = await Article.create(title, lead, content, encodedImage);
     setMessage(response);
   };
+
   return (
     <Container>
       <Form data-cy="create-article" id="create-article" onSubmit={onSubmit}>
@@ -50,20 +50,28 @@ const CreateArticlesForm = () => {
             placeholder="category"
             data-cy="category"
           />
+        </Form.Group>
+        <Form.Group widths="equal" data-cy="form-article">
           <Form.TextArea label="Article" placeholder="..." data-cy="content" />
           <Form.Input
             onChange={selectImage}
             fluid
-            label="image"
+            label="Image"
             placeholder="image"
             data-cy="image-upload"
             type="file"
           />
         </Form.Group>
-        <Form.Button data-cy="save-article">Save Article</Form.Button>
+        <Form.Button data-cy="save-article" color="blue" floated="right">
+          Save Article
+        </Form.Button>
       </Form>
-      {image && <img src={URL.createObjectURL(image)} />}
-      {message && <p data-cy="save-article-message">{message}</p>}
+      {image && <img src={URL.createObjectURL(image)} alt="preview"/>}
+      {message && (
+        <Message data-cy="save-article-message" color="purple">
+          {message}
+        </Message>
+      )}
     </Container>
   );
 };
