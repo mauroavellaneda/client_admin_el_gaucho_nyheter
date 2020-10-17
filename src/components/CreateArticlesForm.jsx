@@ -19,7 +19,7 @@ const CreateArticlesForm = () => {
       };
     });
   const selectImage = (e) => {
-    setImage(URL.createObjectURL(e.target.files[0]));
+    setImage(e.target.files[0]);
   };
 
   const handleCategoryChange = (value) => {
@@ -28,16 +28,16 @@ const CreateArticlesForm = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    let title = e.target.title.value;
-    let lead = e.target.lead.value;
-    let content = e.target.content.value;
+    let title = e.target.children.title.value;
+    let lead = e.target.children.lead.value;
+    let content = e.target.children.content.value;
     let encodedImage;
     if (image) {
       encodedImage = await toBase64(image);
     }
 
-    const result = await Article.create(title, lead, content, encodedImage);
-    setMessage(result);
+    const response = await Article.create(title, lead, content, encodedImage);
+    setMessage(response);
   };
   return (
     <Container>
@@ -49,7 +49,7 @@ const CreateArticlesForm = () => {
             fluid
             label="Category"
             options={options}
-            onChange={(e, data) => {
+            onChange={(data) => {
               handleCategoryChange(data.value);
             }}
             placeholder="category"
@@ -68,7 +68,7 @@ const CreateArticlesForm = () => {
         <Form.Button data-cy="save-article">Save Article</Form.Button>
       </Form>
       {image && <img src={URL.createObjectURL(image)} />}
-      <p data-cy="save-article-message">{message}</p>
+      {message && <p data-cy="save-article-message">{message}</p>}
     </Container>
   );
 };

@@ -62,6 +62,7 @@ describe("Journalist can create article", () => {
         cy.get('[data-cy="category"]').click();
         cy.get('[data-cy="category"]').contains("Politics").click();
         cy.get('[data-cy="content"]').type("Content");
+        cy.file_upload("img.jpeg", "[data-cy='image-upload']", "image/jpeg");
       });
       cy.get('[data-cy="save-article"]').contains("Save Article").click();
       cy.get('[data-cy="save-article-message"]').should(
