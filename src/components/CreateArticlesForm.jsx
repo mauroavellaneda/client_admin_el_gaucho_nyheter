@@ -10,14 +10,11 @@ const CreateArticlesForm = () => {
   const toBase64 = (file) =>
     new Promise((resolve, reject) => {
       const reader = new FileReader();
-      reader.readerAsDataURL(file);
-      reader.onload = () => {
-        resolve(reader.result);
-      };
-      reader.onerror = (error) => {
-        reject(error);
-      };
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
     });
+
   const selectImage = (e) => {
     setImage(e.target.files[0]);
   };
@@ -28,10 +25,8 @@ const CreateArticlesForm = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    let title = e.target.children.title.value;
-    let lead = e.target.children.lead.value;
-    let content = e.target.children.content.value;
-    let encodedImage;
+    let { title, lead, content, encodedImage } = e.target;
+
     if (image) {
       encodedImage = await toBase64(image);
     }
