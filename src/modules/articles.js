@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const Articles = {
-  async create(props) {
+  async create(title, lead, content, image, category) {
     let headers = JSON.parse(localStorage.getItem("J-tockAuth-Storage"));
 
     try {
@@ -9,11 +9,11 @@ const Articles = {
         "/admin/articles",
         {
           article: {
-            title: props.title,
-            lead: props.lead,
-            content: props.content,
-            image: props.image,
-            category: props.selectedCategory,
+            title: title,
+            lead: lead,
+            content: content,
+            image: image,
+            category: category,
           },
         },
         {
