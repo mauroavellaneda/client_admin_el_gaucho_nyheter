@@ -1,19 +1,12 @@
 import React, { useState } from "react";
 import { Form, Container, Message } from "semantic-ui-react";
 import Article from "../modules/articles";
+import toBase64 from '../modules/toBase64'
 
 const CreateArticlesForm = () => {
   const [message, setMessage] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [image, setImage] = useState();
-
-  const toBase64 = (file) =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
 
   const selectImage = (e) => {
     setImage(e.target.files[0]);
@@ -36,10 +29,27 @@ const CreateArticlesForm = () => {
 
   return (
     <Container>
-      <Form data-cy="create-article" id="create-article" onSubmit={onSubmit}>
-        <Form.Group widths="equal" data-cy="form-article">
-          <Form.Input fluid label="Title" placeholder="Title" data-cy="title" />
-          <Form.Input fluid label="Lead" placeholder="Lead" data-cy="lead" />
+      <Form 
+        data-cy="create-article" 
+        id="create-article" 
+        onSubmit={onSubmit}
+      >
+        <Form.Group 
+          widths="equal" 
+          data-cy="form-article"
+        >
+          <Form.Input 
+            fluid 
+            label="Title" 
+            placeholder="Title" 
+            data-cy="title" 
+          />
+          <Form.Input 
+            fluid 
+            label="Lead" 
+            placeholder="Lead" 
+            data-cy="lead" 
+          />
           <Form.Select
             fluid
             label="Category"
@@ -47,22 +57,31 @@ const CreateArticlesForm = () => {
             onChange={(data) => {
               handleCategoryChange(data.value);
             }}
-            placeholder="category"
             data-cy="category"
           />
         </Form.Group>
-        <Form.Group widths="equal" data-cy="form-article">
-          <Form.TextArea label="Article" placeholder="..." data-cy="content" />
+        <Form.Group 
+          widths="equal" 
+          data-cy="form-article"
+        >
+          <Form.TextArea 
+            label="Article" 
+            placeholder="Content" 
+            data-cy="content" 
+          />
           <Form.Input
             onChange={selectImage}
             fluid
             label="Image"
-            placeholder="image"
             data-cy="image-upload"
             type="file"
           />
         </Form.Group>
-        <Form.Button data-cy="save-article" color="blue" floated="right">
+        <Form.Button 
+          data-cy="save-article" 
+          color="blue" 
+          floated="right"
+        >
           Save Article
         </Form.Button>
       </Form>
