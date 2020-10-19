@@ -11,7 +11,7 @@ import configureStore from "./state/store/configureStore";
 
 let apiUrl;
 if (process.env.NODE_ENV === "production") {
-  apiUrl = "";
+  apiUrl = "https://api-el-gaucho-nyheter.herokuapp.com/api/v1";
 } else {
   apiUrl = "http://localhost:3000/api/v1";
 }

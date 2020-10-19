@@ -2,7 +2,7 @@ import JtockAuth from "j-tockauth";
 
 let apiUrl;
 if (process.env.NODE_ENV === "production") {
-  apiUrl = "https://";
+  apiUrl = "https://api-el-gaucho-nyheter.herokuapp.com";
 } else {
   apiUrl = "http://localhost:3000";
 }

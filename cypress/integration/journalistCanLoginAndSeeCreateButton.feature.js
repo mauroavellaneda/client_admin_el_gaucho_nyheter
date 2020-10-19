@@ -62,7 +62,7 @@ describe('Journalist can login and see "Create Article" button', () => {
     });
   });
 
-  context("with 'registered' role -no journlaist-", () => {
+  context("with 'registered' role -no journalist-", () => {
     beforeEach(() => {
       cy.server();
       cy.route({

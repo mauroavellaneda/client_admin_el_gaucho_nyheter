@@ -1,65 +1,96 @@
 import React, { useState } from "react";
-import { Form, Container } from "semantic-ui-react";
+import { Form, Container, Message } from "semantic-ui-react";
 import Article from "../modules/articles";
+import toBase64 from '../modules/toBase64'
 
 const CreateArticlesForm = () => {
   const [message, setMessage] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [image, setImage] = useState();
+
+  const selectImage = (e) => {
+    setImage(e.target.files[0]);
+  };
 
   const handleCategoryChange = (value) => {
-    setSelectedCategory(value);
+   setSelectedCategory(value);
+   return selectedCategory
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const result = await Article.create(
-      e.target.title.value,
-      e.target.lead.value,
-      e.target.content.value,
-      selectedCategory
-    );
-    setMessage(result);
+    let { title, lead, content, encodedImage } = e.target;
+    if (image) {
+      encodedImage = await toBase64(image);
+    }
+    const response = await Article.create(title, lead, content, encodedImage);
+    setMessage(response);
   };
 
   return (
     <Container>
-      <Form data-cy="create-article" id="create-article" onSubmit={onSubmit}>
-        <Form.Group widths="equal" data-cy="form-article">
-          <Form.Input
-            fluid
-            label="Title"
-            placeholder="Title"
-            id="title"
-            data-cy="title"
+      <Form 
+        data-cy="create-article" 
+        id="create-article" 
+        onSubmit={onSubmit}
+      >
+        <Form.Group 
+          widths="equal" 
+          data-cy="form-article"
+        >
+          <Form.Input 
+            fluid 
+            label="Title" 
+            placeholder="Title" 
+            data-cy="title" 
           />
-          <Form.Input
-            fluid
-            label="Lead"
-            placeholder="Lead"
-            data-cy="lead"
-            id="lead"
+          <Form.Input 
+            fluid 
+            label="Lead" 
+            placeholder="Lead" 
+            data-cy="lead" 
           />
           <Form.Select
             fluid
             label="Category"
             options={options}
-            onChange={(e, data) => {
+            onChange={(data) => {
               handleCategoryChange(data.value);
             }}
-            placeholder="Gender"
             data-cy="category"
-            id="category"
-          />
-          <Form.TextArea
-            label="Article"
-            placeholder="..."
-            data-cy="content"
-            id="content"
           />
         </Form.Group>
-        <Form.Button data-cy="save-article">Save Article</Form.Button>
+        <Form.Group 
+          widths="equal" 
+          data-cy="form-article"
+        >
+          <Form.TextArea 
+            label="Article" 
+            placeholder="Content" 
+            data-cy="content" 
+          />
+          <Form.Input
+            onChange={selectImage}
+            fluid
+            label="Image"
+            data-cy="image-upload"
+            type="file"
+          />
+        </Form.Group>
+        <Form.Button 
+          data-cy="save-article" 
+          color="blue" 
+          floated="right"
+        >
+          Save Article
+        </Form.Button>
       </Form>
-      <p data-cy="save-article-message">{message}</p>
+      {image && <img src={URL.createObjectURL(image)} alt="preview"/>}
+      {message && (
+        <Message data-cy="save-article-message" color="purple">
+          {message}
+        </Message>
+      )}
     </Container>
   );
 };

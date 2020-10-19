@@ -7,7 +7,11 @@ const LoginForm = () => {
   const dispatch = useDispatch();
   return (
     <Container>
-      <Form data-cy="login-form" onSubmit={(event) => login(event, dispatch)}>
+      <Form
+        size="small"
+        data-cy="login-form"
+        onSubmit={(event) => login(event, dispatch)}
+      >
         <Form.Input
           icon="user"
           iconPosition="left"
@@ -15,7 +19,6 @@ const LoginForm = () => {
           placeholder="email"
           name="email"
           type="email"
-          id="email"
           data-cy="email"
         />
 
@@ -26,11 +29,10 @@ const LoginForm = () => {
           label="Password:"
           type="password"
           name="password"
-          id="password"
           data-cy="password"
         />
 
-        <Button data-cy="button" id="Submit" content="Submit" primary />
+        <Button data-cy="button" content="Submit" primary />
       </Form>
     </Container>
   );
