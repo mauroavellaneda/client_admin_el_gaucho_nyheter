@@ -14,12 +14,11 @@ const CreateArticlesForm = () => {
 
   const handleCategoryChange = (value) => {
     setSelectedCategory(value);
-    return selectedCategory;
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    let { title, lead, content, encodedImage } = e.target;
+    let { title, lead, content, encodedImage, premium} = e.target;
     if (image) {
       encodedImage = await toBase64(image);
     }
@@ -28,7 +27,8 @@ const CreateArticlesForm = () => {
       lead,
       content,
       encodedImage,
-      selectedCategory
+      selectedCategory,
+      premium,
     );
     setMessage(response);
   };
@@ -37,13 +37,13 @@ const CreateArticlesForm = () => {
     <Container>
       <Form data-cy="create-article" id="create-article" onSubmit={onSubmit}>
         <Form.Group widths="equal" data-cy="form-article">
-          <Form.Input fluid label="Title" placeholder="Title" data-cy="title" />
-          <Form.Input fluid label="Lead" placeholder="Lead" data-cy="lead" />
+          <Form.Input fluid label="Title" placeholder="Title" data-cy="title" name='title' />
+          <Form.Input fluid label="Lead" placeholder="Lead" data-cy="lead" name='lead'/>
           <Form.Select
             fluid
             label="Category"
             options={options}
-            onChange={(data) => {
+            onChange={(e, data) => {
               handleCategoryChange(data.value);
             }}
             data-cy="category"
@@ -53,8 +53,9 @@ const CreateArticlesForm = () => {
             <Checkbox
               toggle
               data-cy="premium"
-              label="Premium"
+              label="premium"
               id="premium"
+              name='premium'
             />
           </Form.Field>
         </Form.Group>
@@ -63,6 +64,7 @@ const CreateArticlesForm = () => {
             label="Article"
             placeholder="Content"
             data-cy="content"
+            name='content'
           />
           <Form.Input
             onChange={selectImage}
