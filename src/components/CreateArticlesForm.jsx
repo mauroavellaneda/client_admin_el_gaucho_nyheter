@@ -18,7 +18,8 @@ const CreateArticlesForm = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    let { title, lead, content, encodedImage, premium} = e.target;
+    let encodedImage
+    let { title, lead, content, premium} = e.target;
     if (image) {
       encodedImage = await toBase64(image);
     }
@@ -49,7 +50,6 @@ const CreateArticlesForm = () => {
             data-cy="category"
           />
           <Form.Field>
-            {" "}
             <Checkbox
               toggle
               data-cy="premium"
